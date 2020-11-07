@@ -5,6 +5,7 @@ by Leonard Kehl, Dominik Buchegger
 
 ### Background
 Wird in der Schweiz eine AG, GmbH oder Genossenschaft geschlossen, muss das noch vorhandene Vermögen liquidiert werden. Dazu müssen im Schweizerischen Handelsamtsblatt (SHAB) drei Schuldenrufe veröffentlicht werden. Melden Gläubiger dieser Gesellschaft ihre Ansprüche nicht innerhalb der Frist von 1 Monat nach dem letzten Schuldenruf an, gehen ihre Ansprüche verloren.
+
 Es ist klar, dass es für Unternehmen und allenfalls sogar Privatpersonen notwendig ist, dieses Amtsblatt im Blick zu behalten, um bei Liquidationen anderer Gesellschaften nicht alle Ansprüche zu verlieren. Auf der Webseite shab.ch lassen sich aber nur einzelne Unternehmen suchen, was eher unpraktikabel ist.
 
 ### Grund App
