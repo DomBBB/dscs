@@ -165,17 +165,22 @@ Additionally we want to point out that our frontend is based on an html template
 
 ![index](readme_img/index.PNG "index")
 
+![search](readme_img/search.PNG "search")
+
 ### Sign In (/login) and Register (/register)
 Both Sign In and Register page are using Flask WTForms. Classes can be found in forms.py. For both functionalities a separate table of our database (users) is used to either insert or validate credentials. The password is hashed using the Bcrypt library. Functions can be found in the main flaskapp.py file under "Helper Functions". By logging in the Cockpit is entered.  
+
 ![register](readme_img/signin.PNG "register")
 ![login](readme_img/signin2.PNG "register")
 
 ### Search & Save (/query)
 The Search & Save page forms, together with the Manage Contacts page, the second part of the cloud solution. The functionality of this page is in its base very similar to the previously descripted search function on the Landingpage. Since both even have the majority of the code in common the base functionality won't be explained again in this chapter. Please have a look at the Landingpage Chapter for further information. In addition to the search functionality on the Landingpage, the Search & Save page offers the functionality of saving the results of the search to a list on the bottom of the page. The list is stored in a separate database table and serves as information source for the daily monitoring (functionality explained in another chapter in detail). The implementation of putting companies on the list and deleting companies from it can be found in the flaskapp.py file under "Inaccessible Helper Routes". This functionality is also activated on the Landingpage for logged in users. A table of all entries in this list is displayed at the bottom of the page. When deleting entries again only the section gets refreshed using JavaScript and jQuery. Companies in liquidation are displayed in a red frame. With them there is displayed further information about the company and information regarding the liquidation. 
+
 ![Search & Save List](readme_img/s_query.png "Search & Save List")
 
 ### Manage Contacts (/contact)
 To fulfill the service of monitoring defaults we need to gather contact information. The user can edit information on the Manage Contacts page. Here a simple Flask WTForm is used to add a contact. For sectional updating when deleting or editing an entry, once again JavaScript and jQuery are used. There is another database table for storing the contacts. The implementation of the altering of the contacts can be found in main.py under "Helper Functions for accessible Routes". To edit a contact, alter the displayed information and save the change by clicking the button. 
+
 ![contacts](readme_img/contacts.PNG "contacts")
 
 # Challenges and their solution 
