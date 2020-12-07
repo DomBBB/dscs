@@ -1,8 +1,0 @@
-version: '3.1'
-services:
-  application1:
-    restart: always
-    build: ./flask_project
-    ports:
-      - 80:5000
-    command: "python3 flaskapp.py"
