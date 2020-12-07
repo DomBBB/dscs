@@ -151,6 +151,7 @@ For this reason all liquidation publications are read in and then splitted into 
 ![main.py logic](readme_img/logic1.png "main.py logic")
 
 The file messaging.py in docker1 is also periodically triggered by cron and notifies users via mail and sms if there's a match beween their saved entries and a newly added liquidation in the database. Because there are three publications for each liquidation, users will be messaged three times if they don't react and delete the company from their monitoring list immediatley (usually three days in a row).
+![notifications](readme_img/notifications.png "notifications")
 
 
 ## Description of technical features - Docker 2
