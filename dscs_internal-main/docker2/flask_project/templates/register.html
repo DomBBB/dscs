@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="jumbotron text-center">
+    {% import "bootstrap/wtf.html" as wtf %}
+    <h1>New to Schuldenrufe.ch?</h1>
+    <p>What are you waiting for? <br>Sign up now and get your money back!</p>
+    <div>
+        <br><br>
+        <div class="jumbotron text-center" style="display: flex; justify-content: space-evenly;">
+
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <section id="register">
+                        <div class="card card-body" style="max-width: 500px;">
+                            {% import "bootstrap/wtf.html" as wtf %}
+                            <br>
+
+                            <div class="container">
+                                <hr>
+                                <form action="" method="post" class="form" role="form">
+                                    {{ form.csrf_token() }}
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-sm-10">
+                                            {{ wtf.form_field(form.user_handle, class='form-control',
+                                    placeholder='newhere0') }}
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-10">
+                                            {{ wtf.form_field(form.password, class='form-control',
+                                    placeholder='***********') }}
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-10">
+                                            <input type="checkbox" name="legal_disclosure" required>  I have read the <a
+                                                href="/impressum">Legal Disclosure</a></input>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-10 text-right">
+                                            <button type="submit" class="btn btn-danger"
+                                                value="ContactForm">Register</button>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </form>
+                                <hr>
+
+                                <small class="form-text text-light">Already getting your money back? <a href="/login">
+                                        Login
+                                        here.</a></small>
+
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-6">
+                    <div class="d-flex">
+                        <img src="/static/magnet.svg" class="center" width="350"
+                            alt="Geld Vektor erstellt von macrovector - de.freepik.com" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br>
+</div>
+<br>
+{% endblock %}

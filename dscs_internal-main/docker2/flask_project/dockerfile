@@ -1,0 +1,8 @@
+# specifies the docker-image you want to copy from
+FROM python:3.8
+# copy everthing from your local folder to the docker container
+COPY . /app
+# change the working directory
+WORKDIR /app
+# install the python packages in the docker container
+RUN pip install -r requirements2.txt
