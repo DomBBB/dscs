@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="jumbotron text-center">
+    {% import "bootstrap/wtf.html" as wtf %}
+    <h1>Welcome back</h1>
+    <p>Please sign in to use our service</p>
+    <div>
+        <br><br>
+        <div class="jumbotron text-center" style="display: flex; justify-content: space-evenly;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="d-flex">
+                        <img src="/static/vault.svg" class="center" width="420px"
+                            alt="Geld Vektor erstellt von macrovector - de.freepik.com" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <section id="login">
+                        <div class="card card-body" style="max-width: 500px;">
+                            {% import "bootstrap/wtf.html" as wtf %}
+                            <br>
+                            <div class="container">
+                                <hr>
+                                <form action="" method="post" class="form" role="form">
+                                    {{ form.csrf_token() }}
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="col-sm-10">
+                                            {{ wtf.form_field(form.user_handle, class='form-control',
+                                            placeholder='moneyback1') }}
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-10">
+                                            {{ wtf.form_field(form.password, class='form-control',
+                                            placeholder='***********') }}
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-1"></div>
+                                        <div class="form-group col-md-10 text-right">
+                                            <button type="submit" class="btn btn-danger" value="ContactForm">Sign
+                                                in
+                                            </button>
+                                        </div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </form>
+                                <hr>
+                                <small class="form-text text-light">New to Schuldenrufe.ch? <a href="/register">
+                                        Register
+                                        here.</a>
+                                </small>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br><br><br><br>
+</div>
+<br>
+{% endblock %}

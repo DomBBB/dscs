@@ -1,0 +1,273 @@
+<!--This section is used to refresh the search section when searched on Landingpage and Save & Search-->
+{% if search[4] == 0 %}
+<!--Displayed when no result for search was found in Zefix-->
+<div id="m_block_1" class="container-fluid">
+    <div id="pricing" class="container-fluid animated fadeInUp delay-1_2s"
+        style="display: flex; justify-content: space-evenly;">
+        <div class="row">
+            <div class="col-sm-4" style="min-width: 300px;">
+                <div class="panel panel-default text-center" style="width: 300px;">
+                    <div class="panel-footer" style="overflow: hidden;">
+                        <p style="margin-bottom: 0px; color: black;">404 COMPANY NOT FOUND</p>
+                        <h4 style="margin-bottom: 0px; margin-top: 0px;">Please alter your search and try again</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if search[4] > 0 %}
+<!--Always displayed when result(s) found because this is rendering the first result in the coloured box together with svg-->
+{% if current_user.is_authenticated %}
+<!--Needed if, since this section is rendered on landing page (without) and search & save page (with save to list option)-->
+<!--This hole block is only rendered when user == auth, please go down to line 88 for else (user != auth)-->
+<div id="1_block" class="animated fadeInUp delay-1s">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="d-flex">
+                {% if search[3] %}
+                <!--Differentiating between the display of solvent company and company in liquidation. This is performed for several items in the upcoming lines-->
+                <img src="/static/bankruptcy.svg" class="center" width="450px" alt="von de.freepik.com" />
+                {% endif %}
+                {% if not search[3] %}
+                <img src="/static/liquidity.svg" class="center" width="500px" alt="von de.freepik.com" />
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div id="pricing" class="container-fluid" style="width: 500px;">
+                {% if search[3] %}
+                <div class="panel panel-default text-center" style="box-shadow: 5px 0px 40px rgba(193, 0, 0, 0.5);">
+                    {% endif %}
+                    {% if not search[3] %}
+                    <div class="panel panel-default text-center" style="box-shadow: 5px 0px 40px rgba(0, 100, 0, 0.5);">
+                        {% endif %}
+                        <div class="panel-footer">
+                            {% if search[3] %}
+                            <h4 style="margin-bottom: 0px; margin-top: 0px; color: red;"><strong>In Liquidation</strong>
+                            </h4>
+                            {% endif %}
+                            {% if not search[3] %}
+                            <h4 style="margin-bottom: 0px; margin-top: 0px; color: green;"><strong>Solvent</strong></h4>
+                            {% endif %}
+                        </div>
+                        {% if search[3] %}
+                        <div class="panel-heading" style="overflow: hidden;  background-color: red!important;">
+                            <p>{{ search[2][-1][0][1] }}</p>
+                        </div>
+                        {% endif %}
+
+                        {% if not search[3] %}
+                        <div class="panel-heading" style="overflow: hidden;  background-color: green!important;">
+                            <p>{{ search[2][-1][0] }}</p>
+                        </div>
+                        {% endif %}
+                        <div class="panel-footer">
+                            <h4 style="margin-bottom: 0px; margin-top: 0px;">Want to monitor this company?</h4>
+                            {% if search[3] %}
+                            <button class="btn btn-lg querySaveButton" unique_id="{{ search[0] }}"
+                                id="querySaveInput{{ search[0] }}"
+                                value="{{ search[2][-1][0][2] + "*,-&" + search[2][-1][0][1] }}">Save to
+                                monitor</button>
+                            {% endif %}
+                            {% if not search[3] %}
+                            <button class="btn btn-lg querySaveButton" unique_id="{{ search[0] }}"
+                                id="querySaveInput{{ search[0] }}"
+                                value="{{ search[2][-1][1]  + "*,-&" + search[2][-1][0] }}">Save to monitor</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!--If current user not auth (can only be the case on landing page), no save option-->
+    <div id="1_block" class="animated fadeInUp delay-1s">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="d-flex">
+                    {% if search[3] %}
+                    <img src="/static/bankruptcy.svg" class="center" width="450px" alt="von de.freepik.com" />
+                    {% endif %}
+                    {% if not search[3] %}
+                    <img src="/static/liquidity.svg" class="center" width="500px" alt="von de.freepik.com" />
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="pricing" class="container-fluid" style="width: 500px;">
+                    {% if search[3] %}
+                    <div class="panel panel-default text-center" style="box-shadow: 5px 0px 40px rgba(193, 0, 0, 0.5);">
+                        {% endif %}
+                        {% if not search[3] %}
+                        <div class="panel panel-default text-center"
+                            style="box-shadow: 5px 0px 40px rgba(0, 100, 0, 0.5);">
+                            {% endif %}
+                            <div class="panel-footer">
+                                {% if search[3] %}
+                                <h4 style="margin-bottom: 0px; margin-top: 0px; color: red;"><strong>In
+                                        Liquidation</strong>
+                                </h4>
+                                {% endif %}
+                                {% if not search[3] %}
+                                <h4 style="margin-bottom: 0px; margin-top: 0px; color: green;"><strong>Solvent</strong>
+                                </h4>
+                                {% endif %}
+                            </div>
+                            {% if search[3] %}
+                            <div class="panel-heading" style="overflow: hidden;  background-color: red!important;">
+                                <p>{{ search[2][-1][0][1] }}</p>
+                            </div>
+                            {% endif %}
+
+                            {% if not search[3] %}
+                            <div class="panel-heading" style="overflow: hidden;  background-color: green!important;">
+                                <p>{{ search[2][-1][0] }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="panel-footer">
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">Want to monitor this company?</h4>
+                                {% if search[3] %}
+                                <button class="btn btn-lg querySaveButton disabled" unique_id="{{ search[0] }}"
+                                    id="querySaveInput{{ search[0] }}"
+                                    value="{{ search[2][-1][0][2] + "*,-&" + search[2][-1][0][1] }}">Upgrade to
+                                    monitor</button>
+                                {% endif %}
+                                {% if not search[3] %}
+                                <button class="btn btn-lg querySaveButton disabled" unique_id="{{ search[0] }}"
+                                    id="querySaveInput{{ search[0] }}"
+                                    value="{{ search[2][-1][1]  + "*,-&" + search[2][-1][0] }}">Upgrade to
+                                    monitor</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
+ <!--"Did you mean ... instead?" part-->
+        {% if search[4] == 2 %}
+        <!--One additional result from ZEFIX-->
+        <div id="m_block_1" class="container-fluid">
+            <div class="text-center animated fadeInUp delay-1_2s">
+                <h4 style="margin-bottom: 0px;">We've found 1 additional result</h4>
+            </div>
+            <div id="pricing" class="container-fluid animated fadeInUp delay-1_2s"
+                style="display: flex; justify-content: space-evenly;">
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][0][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton1" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch1{{ search[0] }}" value="{{search[2][0][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if search[4] == 3 %}
+        <!--Two additional result from ZEFIX-->
+        <div id="m_block_1" class="container-fluid">
+            <div class="text-center animated fadeInUp delay-1_2s">
+                <h4 style="margin-bottom: 0px;">We've found 2 additional results</h4>
+            </div>
+            <div id="pricing" class="container-fluid animated fadeInUp delay-1_2s"
+                style="display: flex; justify-content: space-evenly;">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][0][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton1" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch1{{ search[0] }}" value="{{search[2][0][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][1][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton2" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch2{{ search[0] }}" value="{{search[2][1][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if search[4] == 4 %}
+        <!--Three or more additional result from ZEFIX, only the first three are displayed-->
+        <div id="m_block_1" class="container-fluid">
+            <div class="text-center animated fadeInUp delay-1_2s">
+                <h4 style="margin-bottom: 0px;">We've found more than 2 additional results</h4>
+            </div>
+            <div id="pricing" class="container-fluid animated fadeInUp delay-1_2s"
+                style="display: flex; justify-content: space-evenly;">
+                <div class="row">
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][0][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton1" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch1{{ search[0] }}" value="{{search[2][0][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][1][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton2" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch2{{ search[0] }}" value="{{search[2][1][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" style="min-width: 300px;">
+                        <div class="panel panel-default text-center" style="width: 300px;">
+                            <div class="panel-footer" style="overflow: hidden;">
+                                <h4 style="margin-bottom: 0px;">Did you mean</h4>
+                                <p style="margin-bottom: 0px;">{{search[2][2][0]}}</p>
+                                <h4 style="margin-bottom: 0px; margin-top: 0px;">instead?</h4>
+                                <button class="btn btn-lg redirectQueryButton3" unique_id="{{ search[0] }}"
+                                    id="newQuerySearch3{{ search[0] }}" value="{{search[2][2][0]}}">Search
+                                    instead</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
