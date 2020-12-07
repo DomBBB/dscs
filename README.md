@@ -15,7 +15,7 @@ respective creditors and give them sufficient time to file their claims, a compa
 Handelsamtsblatt [SHAB](https://www.shab.ch). A creditor is entitled to file his claims in a 30-day period, starting with the third publication.
 Since a few years the SHAB is completely digital and it is possible to search each company on their website. Because frequently consulting the
 register manually is very inconvenient and time consuming, today this task is either skipped or outsourced to law firms, charging a lot of money.
-This is where *Schuldenufe.ch* comes into place by providing an inexpensive and easy to use solution to monitor an unlimited list of companies.
+This is where *Schuldenrufe.ch* comes into place by providing an inexpensive and easy to use solution to monitor an unlimited list of companies.
 Using our service our clients are able to search if companies are in liquidation and save them to a private monitoring list. Leaving contact
 information, a creditor is automatically notified via email and/or SMS when a default on his list is detected, right after the newest SHAB is
 published early in the morning, even before the workday starts. 
@@ -148,6 +148,7 @@ Add following tables:
 The file main.py in docker 1 which is periodically triggered by cron populates our database with all liquidation publications in the SHAB. To do this the actual SHAB issue is downloaded and then parsed with PyPDF2. For humans it is easy to understand the structure in a pdf, but due to the pdf type a computer can't understand the structure in a pdf.
 
 For this reason all liquidation publications are read in and then splitted into blocks by searching the index for the word "Liquidationsschuldenruf". Because the pdf follows almost always the same structure we can then use further indexing to get the relevant information for all liquidation publications. There is a lot of exception handling involved because the data is not always completely published and if we definitely need a certain data for our database we need to gather it using other ways. E.g. if the CHE number is empty we try to query zefix to get the CHE number or if the ending time of the liquidation is not published in the SHAB we add 30 days if it was the third publication (because this is what is written in the law. The gathered data is then inserted into a PSQL database, while the liquidations which are overdue for 30 days are deleted.
+![main.py logic](readme_img/logic1.png "main.py logic")
 
 The file messaging.py in docker1 is also periodically triggered by cron and notifies users via mail and sms if there's a match beween their saved entries and a newly added liquidation in the database. Because there are three publications for each liquidation, users will be messaged three times if they don't react and delete the company from their monitoring list immediatley (usually three days in a row).
 
